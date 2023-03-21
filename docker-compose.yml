@@ -36,7 +36,7 @@ services:
       dockerfile: ./infra/docker/nginx/Dockerfile
     ports:
       - target: 80
-        published: ${WEB_PUBLISHED_PORT:-80}
+        published: ${WEB_PUBLISHED_PORT:-8080}
         protocol: tcp
         mode: host
     volumes:
@@ -50,7 +50,7 @@ services:
       dockerfile: ./infra/docker/mysql/Dockerfile
     ports:
       - target: 3306
-        published: ${DB_PUBLISHED_PORT:-3306}
+        published: ${DB_PUBLISHED_PORT:-3307}
         protocol: tcp
         mode: host
     volumes:
@@ -66,6 +66,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
 
   mailhog:
+    platform: 'linux/amd64'
     image: mailhog/mailhog
     ports:
       - target: 8025
