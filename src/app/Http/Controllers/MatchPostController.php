@@ -1,17 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\MatchPost;
-use App\Models\User;
-use App\Http\Resources\MatchPostResource;
 use App\Http\Requests\StoreMatchPostRequest;
 use App\Http\Requests\UpdateMatchPostRequest;
-
-use Illuminate\Support\Facades\Log;
-
-
+use App\Http\Resources\MatchPostResource;
+use App\Models\MatchPost;
+use App\Models\User;
 
 class MatchPostController extends Controller
 {
@@ -20,19 +17,21 @@ class MatchPostController extends Controller
      */
     public function index()
     {
-        $match_posts = MatchPost::all();
-        return MatchPostResource::collection($match_posts);
+        $matchPosts = MatchPost::all();
+
+        return MatchPostResource::collection($matchPosts);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMatchPostRequest $request, User $user)
+    public function store(StoreMatchPostRequest $request)
     {
         $validated = $request->validated();
 
-        $created = $user->match_posts()->create($validated);
-        $created->ranks()->sync(explode(",", $request->ranks));
+        $created = MatchPost::create($validated);
+        $created->ranks()->sync(explode(',', $request->ranks));
+
         return new MatchPostResource($created);
     }
 
@@ -41,9 +40,9 @@ class MatchPostController extends Controller
      */
     public function show(string $id)
     {
-        $match_post = MatchPost::find($id);
+        $matchPost = MatchPost::find($id);
 
-        return new MatchPostResource($match_post);
+        return new MatchPostResource($matchPost);
     }
 
     /**
@@ -51,11 +50,12 @@ class MatchPostController extends Controller
      */
     public function update(UpdateMatchPostRequest $request, string $id, User $user)
     {
-        $match_post = MatchPost::find($id);
+        $matchPost = MatchPost::find($id);
         $validated = $request->validated();
-        $match_post->fill($validated)->save();
-        $match_post->ranks()->sync(explode(",", $request->ranks));
-        return new MatchPostResource($match_post);
+        $matchPost->fill($validated)->save();
+        $matchPost->ranks()->sync(explode(',', $request->ranks));
+
+        return new MatchPostResource($matchPost);
     }
 
     /**
@@ -63,10 +63,10 @@ class MatchPostController extends Controller
      */
     public function destroy(string $id)
     {
-        $match_post = MatchPost::find($id)->delete();
+        $matchPost = MatchPost::find($id)->delete();
 
         return response()->json([
-            $match_post,
+            $matchPost,
             'message' => '投稿を削除しました',
         ], 200);
     }

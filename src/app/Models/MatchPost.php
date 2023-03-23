@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,12 +13,12 @@ class MatchPost extends Model
 {
     use HasFactory;
 
-    Public function user()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'users');
+        return $this->belongsTo(User::class);
     }
 
-    Public function mode()
+    public function mode()
     {
         return $this->belongsTo(Mode::class);
     }
@@ -25,7 +28,7 @@ class MatchPost extends Model
         return $this->belongsToMany(Rank::class, 'match_ranks');
     }
 
-    Public function mood()
+    public function mood()
     {
         return $this->belongsTo(Mood::class);
     }
@@ -35,8 +38,8 @@ class MatchPost extends Model
         parent::boot();
 
         // 保存時user_idをログインユーザーに設定
-        self::saving(function($post) {
-            $post->user_id = \Auth::id();
+        self::saving(function ($post) {
+            $post->user_id = Auth::id();
         });
     }
 

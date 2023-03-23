@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\MatchPost;
-
+use App\Models\Rank;
+use Illuminate\Database\Seeder;
 
 class MatchPostsSeeder extends Seeder
 {
@@ -14,6 +15,15 @@ class MatchPostsSeeder extends Seeder
      */
     public function run(): void
     {
-        MatchPost::Factory(5)->create();
+        // $ranks = Rank::pluck('id')->all();
+        // $rankIds = Rank::pluck('id')->random(rand(1, 4))->all();
+        // $ranks = implode(',', $rankIds);
+
+        // MatchPost::Factory()
+        //     ->count(5)
+        //     ->for(UserSeeder::$user)
+        //     ->create()
+        //     ->ranks()
+        //     ->sync(explode(",", $ranks));
     }
 }

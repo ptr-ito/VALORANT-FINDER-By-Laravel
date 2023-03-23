@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class RanksSeeder extends Seeder
     public function run(): void
     {
         DB::table('ranks')->insert([
-            ['name' => '未選択' ],
+            ['name' => '未選択'],
             ['name' => 'ランクなし'],
             ['name' => 'アイアン1'],
             ['name' => 'アイアン2'],
@@ -28,9 +29,9 @@ class RanksSeeder extends Seeder
             ['name' => 'ゴールド1'],
             ['name' => 'ゴールド2'],
             ['name' => 'ゴールド3'],
-            ['name' => 'プラチナ1' ],
-            ['name' => 'プラチナ2' ],
-            ['name' => 'プラチナ3' ],
+            ['name' => 'プラチナ1'],
+            ['name' => 'プラチナ2'],
+            ['name' => 'プラチナ3'],
             ['name' => 'ダイヤモンド1'],
             ['name' => 'ダイヤモンド2'],
             ['name' => 'ダイヤモンド3'],

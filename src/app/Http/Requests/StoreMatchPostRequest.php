@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,8 +26,8 @@ class StoreMatchPostRequest extends FormRequest
         return [
             'title' => 'required|string|min:1|max:255',
             'content' => 'required|min:1|string|max:2000',
-            'mode_id' => 'required',
-            'mood_id' => 'required',
+            'mode_id' => 'required|integer',
+            'mood_id' => 'required|integer',
         ];
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Http\Controllers\MatchPostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MatchPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +29,5 @@ Route::apiResource('/match_post', MatchPostController::class)
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/match_post', MatchPostController::class)
-        ->only([ 'store','update', 'destroy']);
+        ->only(['store', 'update', 'destroy']);
 });

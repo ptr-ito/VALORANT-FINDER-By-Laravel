@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,7 @@ class MoodsSeeder extends Seeder
             ['name' => 'わいわいやりたい'],
             ['name' => '勝ち負けにこだわらない'],
             ['name' => 'わいわいしながら連携は取りたい'],
-            ['name' => '勝ちにいきたい']
+            ['name' => '勝ちにいきたい'],
         ]);
     }
 }
