@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MatchPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/currentUser', function (Request $request) {
     return $request->user();
+});
+
+Route::apiResource('/match_posts', MatchPostController::class)
+    ->only(['index']);
+
+Route::apiResource('/match_post', MatchPostController::class)
+->only(['show']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/match_post', MatchPostController::class)
+        ->only([ 'store','update', 'destroy']);
 });

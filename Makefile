@@ -1,3 +1,6 @@
+make:
+	docker compose exec app
+
 install:
 	@make build
 	@make up
@@ -49,8 +52,10 @@ app:
 	docker compose exec app bash
 migrate:
 	docker compose exec app php artisan migrate
-fresh:
-	docker compose exec app php artisan migrate:fresh --seed
+route:
+	docker compose exec app php artisan route:list
+refresh:
+	docker compose exec app php artisan migrate:refresh
 seed:
 	docker compose exec app php artisan db:seed
 dacapo:
