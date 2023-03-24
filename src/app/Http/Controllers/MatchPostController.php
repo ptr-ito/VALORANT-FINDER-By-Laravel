@@ -48,7 +48,7 @@ class MatchPostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMatchPostRequest $request, string $id, User $user)
+    public function update(UpdateMatchPostRequest $request, string $id)
     {
         $matchPost = MatchPost::find($id);
         $validated = $request->validated();

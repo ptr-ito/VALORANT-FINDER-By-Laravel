@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\MatchPostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,16 @@ Route::apiResource('/match_posts', MatchPostController::class)
     ->only(['index']);
 
 Route::apiResource('/match_post', MatchPostController::class)
-->only(['show']);
+    ->only(['show']);
+
+Route::apiResource('/comments', CommentController::class)
+    ->only(['index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/match_post', MatchPostController::class)
         ->only(['store', 'update', 'destroy']);
+
+    Route::apiResource('/comment', CommentController::class)
+        ->only(['store', 'update', 'destroy']);
 });
+
