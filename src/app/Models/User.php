@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(MatchPost::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

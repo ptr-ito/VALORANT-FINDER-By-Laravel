@@ -33,6 +33,11 @@ class MatchPost extends Model
         return $this->belongsTo(Mood::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

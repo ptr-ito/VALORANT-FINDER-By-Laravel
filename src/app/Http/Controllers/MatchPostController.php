@@ -8,7 +8,6 @@ use App\Http\Requests\StoreMatchPostRequest;
 use App\Http\Requests\UpdateMatchPostRequest;
 use App\Http\Resources\MatchPostResource;
 use App\Models\MatchPost;
-use App\Models\User;
 
 class MatchPostController extends Controller
 {
@@ -48,7 +47,7 @@ class MatchPostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMatchPostRequest $request, string $id, User $user)
+    public function update(UpdateMatchPostRequest $request, string $id)
     {
         $matchPost = MatchPost::find($id);
         $validated = $request->validated();
