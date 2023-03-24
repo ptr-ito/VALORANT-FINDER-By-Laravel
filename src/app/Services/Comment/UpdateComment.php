@@ -24,7 +24,6 @@ class UpdateComment extends BaseService
     {
         $this->validate($data);
 
-
         if (! empty($data['match_post_id'])) {
             $comment = Comment::where('user_id', $data['user_id'])
                 ->where('match_post_id', $data['match_post_id'])

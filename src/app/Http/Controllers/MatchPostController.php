@@ -10,7 +10,6 @@ use App\Services\MatchPost\CreateMatchPost;
 use App\Services\MatchPost\UpdateMatchPost;
 use Illuminate\Http\Request;
 
-
 class MatchPostController extends Controller
 {
     /**
