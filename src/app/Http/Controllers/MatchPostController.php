@@ -6,12 +6,54 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\MatchPostResource;
 use App\Models\MatchPost;
+use App\Models\Mode;
+use App\Models\Mood;
+use App\Models\Rank;
 use App\Services\MatchPost\CreateMatchPost;
 use App\Services\MatchPost\UpdateMatchPost;
 use Illuminate\Http\Request;
 
 class MatchPostController extends Controller
 {
+    public function search(Request $request)
+    {
+        $query = MatchPost::query();
+
+        $rankInput = $request->get('rank');
+
+
+        if ($request->filled('keyword')) {
+            $query->where('title', 'like', '%'.$request->get('keyword').'%')
+                ->orWhere('content', 'LIKE', '%'.$request->get('keyword').'%');
+
+            $query->orderBy('updated_at', 'desc')->paginate(15);
+        }
+
+        if ($request->filled('mode')) {
+            $mode_id = Mode::where('name', $request->mode)->first()->id;
+            $query->where('mode_id', $mode_id);
+
+            $query->orderBy('updated_at', 'desc')->paginate(15);
+        }
+
+        if ($request->filled('mood')) {
+            $mood_id = Mood::where('name', $request->mood)->first()->id;
+            $query->where('mood_id', $mood_id);
+
+            $query->orderBy('updated_at', 'desc')->paginate(15);
+        }
+
+        if ($request->filled('rank')) {
+            MatchPost::whereHas('ranks', function($query) use ($rankInput) {
+                $query->where('name', 'LIKE', '%'.$rankInput.'%');
+            })->get();
+
+            $query->orderBy('updated_at', 'desc')->paginate(15);
+        }
+
+
+        return MatchPostResource::collection($query->get());
+    }
     /**
      * Display a listing of the resource.
      */
