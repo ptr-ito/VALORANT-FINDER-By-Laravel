@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreMatchPostRequest;
-use App\Http\Requests\UpdateMatchPostRequest;
 use App\Http\Resources\MatchPostResource;
 use App\Models\MatchPost;
+use App\Services\MatchPost\CreateMatchPost;
+use App\Services\MatchPost\UpdateMatchPost;
+use Illuminate\Http\Request;
+
 
 class MatchPostController extends Controller
 {
@@ -24,14 +26,19 @@ class MatchPostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMatchPostRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+        $matchPost = app(CreateMatchPost::class)->execute([
+            'user_id' => auth()->user()->id,
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'mode_id' => $request->input('mode_id'),
+            'mood_id' => $request->input('mood_id'),
+        ]);
 
-        $created = MatchPost::create($validated);
-        $created->ranks()->sync(explode(',', $request->ranks));
+        $matchPost->ranks()->sync(explode(',', $request->ranks));
 
-        return new MatchPostResource($created);
+        return new MatchPostResource($matchPost);
     }
 
     /**
@@ -47,11 +54,17 @@ class MatchPostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMatchPostRequest $request, string $id)
+    public function update(Request $request, MatchPost $matchPost)
     {
-        $matchPost = MatchPost::find($id);
-        $validated = $request->validated();
-        $matchPost->fill($validated)->save();
+        $matchPost = app(UpdateMatchPost::class)->execute([
+            'user_id' => auth()->user()->id,
+            'match_post_id' => $matchPost->id,
+            'content' => $request->input('content'),
+            'title' => $request->input('title'),
+            'mode_id' => $request->input('mode_id'),
+            'mood_id' => $request->input('mood_id'),
+        ]);
+
         $matchPost->ranks()->sync(explode(',', $request->ranks));
 
         return new MatchPostResource($matchPost);
