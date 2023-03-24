@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Comment;
 
-use App\Services\BaseService;
 use App\Models\Comment;
+use App\Services\BaseService;
 
 class UpdateComment extends BaseService
 {
@@ -20,7 +22,6 @@ class UpdateComment extends BaseService
 
     public function execute(array $data): Comment
     {
-
         $this->validate($data);
 
         if (! empty($data['match_post_id'])) {

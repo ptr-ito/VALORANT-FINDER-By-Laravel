@@ -8,7 +8,6 @@ use App\Http\Requests\StoreMatchPostRequest;
 use App\Http\Requests\UpdateMatchPostRequest;
 use App\Http\Resources\MatchPostResource;
 use App\Models\MatchPost;
-use App\Models\User;
 
 class MatchPostController extends Controller
 {

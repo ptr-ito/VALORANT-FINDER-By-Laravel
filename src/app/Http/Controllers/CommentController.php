@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Comment;
 use App\Http\Resources\CommentResource;
-use App\Http\Requests\CommentRequest;
+use App\Models\Comment;
 use App\Services\Comment\CreateComment;
 use App\Services\Comment\UpdateComment;
-
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -58,7 +58,7 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        $comment =Comment::find($id)->delete();
+        $comment = Comment::find($id)->delete();
 
         return response()->json([
             $comment,

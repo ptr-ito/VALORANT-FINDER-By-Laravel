@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\MatchPostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MatchPostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +38,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/comment', CommentController::class)
         ->only(['store', 'update', 'destroy']);
 });
-

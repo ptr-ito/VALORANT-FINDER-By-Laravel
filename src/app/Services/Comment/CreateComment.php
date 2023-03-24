@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Comment;
 
-use App\Services\BaseService;
 use App\Models\Comment;
+use App\Services\BaseService;
 
 class CreateComment extends BaseService
 {
@@ -19,16 +21,17 @@ class CreateComment extends BaseService
 
     public function execute(array $data): Comment
     {
-
         $this->validate($data);
 
         $rootComment = Comment::find($data['root_id']);
 
-        if($rootComment) {
+        if ($rootComment) {
             $reply = $rootComment->replies()->create($data);
+
             return Comment::find($reply->id);
         } else {
             $comment = Comment::create($data);
+
             return Comment::find($comment->id);
         }
     }
