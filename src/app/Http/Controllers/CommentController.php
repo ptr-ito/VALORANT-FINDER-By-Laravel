@@ -27,22 +27,14 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validated();
-
-        // $created = Comment::create($validated);
-        // $created->article_id = $request->match_post_id;
-        // $created->user_id = auth()->user()->id;
-
-        // return new CommentResource($created);
-
         $comment = app(CreateComment::class)->execute([
             'user_id' => auth()->user()->id,
             'match_post_id' => $request->match_post_id,
+            'root_id' => $request->input('root_id'),
             'content' => $request->input('content'),
         ]);
 
         return new CommentResource($comment);
-
     }
 
     /**
@@ -50,16 +42,11 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        // $comment = Comment::find($id);
-        // $validated = $request->validated();
-        // $comment->fill($validated)->save();
-
-        // return new CommentResource($comment);
-
         $comments = app(UpdateComment::class)->execute([
             'user_id' => auth()->user()->id,
             'comment_id' => $comment->id,
             'match_post_id' => $request->match_post_id,
+            'root_id' => $request->root_id,
             'content' => $request->input('content'),
         ]);
 

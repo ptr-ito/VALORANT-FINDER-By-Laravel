@@ -13,6 +13,7 @@ class UpdateComment extends BaseService
             'user_id' => 'required|integer|exists:users,id',
             'match_post_id' => 'required|integer|exists:match_posts,id',
             'comment_id' => 'required|integer|exists:comments,id',
+            'root_id' => 'integer|nullable',
             'content' => 'required|string|min:1|max:255',
         ];
     }
@@ -32,10 +33,10 @@ class UpdateComment extends BaseService
         }
 
         $comment->update([
-            'title' => $data['content'],
+            'content' => $data['content'],
         ]);
 
-        $comment = Comment::create($data);
+        $comment->fill($data)->save();
 
         return $comment;
     }
