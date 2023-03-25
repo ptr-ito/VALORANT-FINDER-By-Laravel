@@ -22,14 +22,13 @@ Route::middleware('auth:sanctum')->get('/currentUser', function (Request $reques
     return $request->user();
 });
 
+Route::get('/search', [MatchPostController::class, 'search']);
+
 Route::apiResource('/match_posts', MatchPostController::class)
     ->only(['index']);
 
 Route::apiResource('/match_post', MatchPostController::class)
     ->only(['show']);
-
-Route::apiResource('/comments', CommentController::class)
-    ->only(['index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/match_post', MatchPostController::class)
@@ -38,3 +37,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/comment', CommentController::class)
         ->only(['store', 'update', 'destroy']);
 });
+
+Route::apiResource('/comments', CommentController::class)
+    ->only(['index']);

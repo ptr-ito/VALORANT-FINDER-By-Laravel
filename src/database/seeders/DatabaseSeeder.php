@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder
             ModesSeeder::class,
             RanksSeeder::class,
             MoodsSeeder::class,
-            // UserSeeder::class,
-            // MatchPostsSeeder::class,
+            UserSeeder::class,
+            MatchPostSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }

@@ -13,8 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->foreignId('root_id')->nullable()->change();
+        Schema::table('users', function (Blueprint $table) {
         });
     }
 
@@ -23,7 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 };

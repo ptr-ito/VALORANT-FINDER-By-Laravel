@@ -9,13 +9,11 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    public static User $user;
-
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        self::$user = User::factory()->create();
+        User::factory()->count(10)->create();
     }
 }
