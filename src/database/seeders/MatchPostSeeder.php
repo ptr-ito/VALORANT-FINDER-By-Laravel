@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\MatchPost;
 use App\Models\Rank;
-use Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
-use App\Models\User;
-
 
 class MatchPostSeeder extends Seeder
 {

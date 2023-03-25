@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -18,8 +18,8 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
     private static int $sequence = 1;
+
     public function definition(): array
     {
         $createdAt = $this->faker->dateTimeBetween('-1 years');

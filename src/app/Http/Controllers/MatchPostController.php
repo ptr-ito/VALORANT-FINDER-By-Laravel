@@ -8,7 +8,6 @@ use App\Http\Resources\MatchPostResource;
 use App\Models\MatchPost;
 use App\Models\Mode;
 use App\Models\Mood;
-use App\Models\Rank;
 use App\Services\MatchPost\CreateMatchPost;
 use App\Services\MatchPost\UpdateMatchPost;
 use Illuminate\Http\Request;
@@ -20,7 +19,6 @@ class MatchPostController extends Controller
         $query = MatchPost::query();
 
         $rankInput = $request->get('rank');
-
 
         if ($request->filled('keyword')) {
             $query->where('title', 'like', '%'.$request->get('keyword').'%')
@@ -44,16 +42,16 @@ class MatchPostController extends Controller
         }
 
         if ($request->filled('rank')) {
-            MatchPost::whereHas('ranks', function($query) use ($rankInput) {
+            MatchPost::whereHas('ranks', function ($query) use ($rankInput) {
                 $query->where('name', 'LIKE', '%'.$rankInput.'%');
             })->get();
 
             $query->orderBy('updated_at', 'desc')->paginate(15);
         }
 
-
         return MatchPostResource::collection($query->get());
     }
+
     /**
      * Display a listing of the resource.
      */

@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Comment;
-
+use Illuminate\Database\Seeder;
 
 class CommentSeeder extends Seeder
 {
@@ -13,6 +13,7 @@ class CommentSeeder extends Seeder
      * Run the database seeds.
      */
     private static $sequence = 1;
+
     public function run(): void
     {
         $rootCommentsCount = 10;
