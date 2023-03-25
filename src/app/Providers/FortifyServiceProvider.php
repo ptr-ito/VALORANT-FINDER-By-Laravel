@@ -12,8 +12,14 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
+use App\Http\Responses\RegisterResponse;
+use App\Http\Responses\LoginResponse;
+use App\Http\Responses\LogoutResponse;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -22,16 +28,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse
-        {
-            public function toResponse($request)
-            {
-                return response()->json([
-                    'code' => 200,
-                    'user' => $request->user(),
-                ]);
-            }
-        });
+        //
     }
 
     /**
@@ -53,5 +50,20 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        $this->app->singleton(
+            RegisterResponseContract::class,
+            RegisterResponse::class,
+        );
+        $this->app->singleton(
+            LoginResponseContract::class,
+            LoginResponse::class,
+        );
+        $this->app->singleton(
+            LogoutResponseContract::class,
+            LogoutResponse::class,
+        );
+
+
     }
 }
