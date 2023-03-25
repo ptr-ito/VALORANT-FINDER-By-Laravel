@@ -7,7 +7,6 @@ namespace App\Models;
 use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class MatchPost extends Model
 {
@@ -23,7 +22,7 @@ class MatchPost extends Model
         return $this->belongsTo(Mode::class);
     }
 
-    public function ranks(): BelongsToMany
+    public function ranks()
     {
         return $this->belongsToMany(Rank::class, 'match_ranks');
     }

@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -17,18 +18,21 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    private static int $sequence = 1;
     public function definition(): array
     {
-        $date = $this->faker->dateTimeBetween('-1year');
+        $createdAt = $this->faker->dateTimeBetween('-1 years');
+        $updatedAt = $this->faker->dateTimeBetween($createdAt);
 
         return [
-            'name' => fake()->name(),
+            'name' => 'name_'.self::$sequence++,
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('password'), // password
             'remember_token' => Str::random(10),
-            'created_at' => $date,
-            'updated_at' => $date,
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
         ];
     }
 
